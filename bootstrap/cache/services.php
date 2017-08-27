@@ -29,6 +29,7 @@
     25 => 'App\\Providers\\AuthServiceProvider',
     26 => 'App\\Providers\\EventServiceProvider',
     27 => 'App\\Providers\\RouteServiceProvider',
+    28 => 'Zizaco\\Entrust\\EntrustServiceProvider',
   ),
   'eager' => 
   array (
@@ -46,6 +47,7 @@
     11 => 'App\\Providers\\AuthServiceProvider',
     12 => 'App\\Providers\\EventServiceProvider',
     13 => 'App\\Providers\\RouteServiceProvider',
+    14 => 'Zizaco\\Entrust\\EntrustServiceProvider',
   ),
   'deferred' => 
   array (
