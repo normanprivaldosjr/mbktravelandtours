@@ -39,6 +39,9 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
     Route::post('posts/create', 'PostsController@store');
     Route::post('posts/{id?}/edit','PostsController@update');
     Route::post('categories/create', 'CategoriesController@store');
+
+    Route::get('/users/profile/purchases/{uniqid?}', 'UsersController@view_purchase');
+    Route::get('/users/purchase/cancel-order/{id?}', 'UsersController@cancel_purchase');
 });
 Route::middleware(['member'])->group(function () {
     Route::get('users/profile', 'UsersController@profile');
@@ -50,6 +53,10 @@ Route::middleware(['member'])->group(function () {
     Route::get('/checkout', 'CheckoutController@index');
 
     Route::post('/checkout', 'CheckoutController@checkout');
+
+    Route::get('/users/profile/purchases/{uniqid?}', 'UsersController@view_purchase');
+
+    Route::get('/users/purchase/cancel-order/{id?}', 'UsersController@cancel_purchase');
 });
 Route::get('/blogs', 'BlogController@index');
 Route::get('/blog/{slug?}', 'BlogController@show');
@@ -150,5 +157,3 @@ Route::get('sendemail', function () {
 
 });
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

@@ -15,6 +15,8 @@ class EventServiceProvider extends ServiceProvider
 
     //Include email sending as soon as the feature is added
     protected $listen = [
+        //ADD THIS FOR THE EMAIL: 'App\Listeners\sendEmailConfirmation'
+        //Then run this in the terminal "php artisan event:generate" without the quotation marks
         'App\Events\UserRegistered' => [
             'App\Listeners\AssignRole',
             'App\Listeners\addCookieToCartR',

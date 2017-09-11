@@ -1,3 +1,9 @@
+<?php
+    if (!empty($_COOKIE['for]'])) {
+        setcookie('for', '', time() - (86400 * 30), "/");
+    }
+    
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,12 +94,14 @@
                     type: "success",
                     html: "<div class=\"swal-success-status\">{{ session('status') }}</div>"
                 });
+                <?php session()->forget('status'); ?>
             @elseif (session('error'))
                 swal({
                     title: "Before you proceed",
                     type: "warning",
                     html: "<div class=\"swal-success-status\">{{ session('error') }}</div>"
                 });
+                <?php session()->forget('error'); ?>
             @elseif (session('continue'))
                 swal({
                     title: "Success!",
@@ -102,21 +110,31 @@
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    cancelButtonText: "No",
-                    confirmButtonText: "Yes"
+                    cancelButtonText: "Later",
+                    confirmButtonText: "OK"
                 }).then(function() {
-                    window.location.href = "{!! url('/') !!}/shopping-cart";
+                    window.location.href = "{!! url('/') !!}/checkout";
                 });
-            @endif
-        }
-        <?php
-            $check_info = session('user_info');
-            if (!empty($check_info)) {
-                session()->forget('user_info');
-                ?>
-
+                <?php session()->forget('continue'); ?>
+            @elseif (session('continue_new'))
                 swal({
-                    title: "Welcome, "+"{!! $check_info !!}!",
+                    title: "Success!",
+                    type: "info",
+                    html: "<div class=\"swal-success-status\">{{ session('continue_new') }}</div>",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Later",
+                    confirmButtonText: "OK"
+                }).then(function() {
+                    window.location.href = "{!! url('/') !!}/users/settings?for=checkout";
+                });
+                <?php session()->forget('continue_new'); ?>
+                <?php session()->forget('continue'); ?>
+                <?php session()->forget('user_info'); ?>
+            @elseif (session('user_info'))
+                swal({
+                    title: "Welcome, "+"{!! session('user_info') !!}!",
                     type: "info",
                     html: "Do you want to complete your profile details?",
                     showCancelButton: true,
@@ -127,10 +145,9 @@
                 }).then(function() {
                     window.location.href = "{!! url('/') !!}/users/settings";
                 });
-                    
-                <?php 
-            }
-        ?>
+                <?php session()->forget('user_info');  ?>
+            @endif
+        }
        
     });
 </script>

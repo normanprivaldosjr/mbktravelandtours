@@ -27,7 +27,7 @@ class CheckoutController extends Controller
                 $homepage = DB::table('homepage')->first();
                 $bank_info = DB::table('bank_info')->first();
                 if (count($cart_items) == 0) {
-                    return redirect('/tour-packages')->with('error', 'There is no item in your cart.');
+                    return redirect('/tour-packages')->with('status', 'Please select your payment method and review your order before submitting.');
                 }
                 else {
                     return view('checkout', compact('homepage', 'cart_items', 'bank_info'));
@@ -113,7 +113,7 @@ class CheckoutController extends Controller
 			        		'customer_pax' => $cart_item->no_of_pax,
 			        		'price' => $total,
 			        		'travel_period' => $cart_item->no_of_days.'D'.$cart_item->no_of_nights.'N',
-			        		'chosen_travel_date' => date('Y-m-d', strtotime($request->get('chosen_travel_date'))),
+			        		'chosen_travel_date' => date('Y-m-d', strtotime($cart_item->chosen_travel_date)),
 			        	));
 			        	$purchased_item->save();
 			        }

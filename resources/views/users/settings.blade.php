@@ -273,8 +273,18 @@
                         </tr>
                     </table>
                     <br>
-                    {!! Form::button('Update Information', $attributes = array('type' => 'submit', 'class' => 'btn btn-primary text-uppercase')) !!}
-                    <a class="btn btn-default text-uppercase" href="{!! url('/') !!}/users/change-password">Change Password</a>
+                    
+                    @if (!empty($_GET['for']))
+                        @if ($_GET['for'] == 'checkout')
+                            {!! Form::button('Proceed to Checkout', $attributes = array('type' => 'submit', 'class' => 'btn btn-primary text-uppercase')) !!}
+                            {!! Form::hidden('for', 'checkout') !!}
+                        @endif
+                    @else
+                        {!! Form::button('Update Information', $attributes = array('type' => 'submit', 'class' => 'btn btn-primary text-uppercase')) !!}
+                        <a class="btn btn-default text-uppercase" href="{!! url('/') !!}/users/change-password">Change Password</a>
+                    @endif
+                    
+                    
                     <!-- <button class="btn btn-danger text-uppercase">Delete Account</button> -->
                 
                 </div>
