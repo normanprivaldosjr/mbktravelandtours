@@ -12,10 +12,20 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
+
+    //Include email sending as soon as the feature is added
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        'App\Events\UserRegistered' => [
+            'App\Listeners\AssignRole',
+            'App\Listeners\addCookieToCartR',
+            'App\Listeners\setSessionForOTherInformationR',
+            
         ],
+        'App\Events\UserLogin' => [
+            'App\Listeners\addCookieToCart',
+            'App\Listeners\setSessionForOTherInformation',
+            
+        ]
     ];
 
     /**

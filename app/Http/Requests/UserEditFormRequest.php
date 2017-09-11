@@ -24,9 +24,16 @@ class UserEditFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email'=> 'required',
-            'role'=> 'required',
+            'first_name' => 'required',
+            'middle_initial' => '',
+            'last_name' => 'required',
+            'phone_number' => '',
+            'city' => '',
+            'province' => '',
+            'birthday' => 'date',
+            'profile_pictre' => 'image|mimes:jpeg,bmp,png|size:2000',
+            
         ];
+        //
     }
 }

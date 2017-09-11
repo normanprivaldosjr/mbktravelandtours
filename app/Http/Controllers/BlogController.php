@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Post;
 
 class BlogController extends Controller
@@ -14,8 +15,14 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('blog.index', compact('posts'));
+
+        $posts = Post::with('media')
+                ->join('medias', 'posts.featured_img', '=', 'medias.id')
+                ->whereRaw(DB::raw('medias.file_type != 1  and posts.status = 1'))
+                ->orderBy('posts.date_published')
+                ->paginate(9);
+        $homepage = DB::table('homepage')->first();
+        return view('blog.index', compact('posts', 'homepage'));
     }
 
     /**
@@ -47,9 +54,12 @@ class BlogController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::whereSlug($slug)->firstOrFail();
-        $comments = $post->comments()->get();
-        return view('blog.show', compact('post', 'comments'));
+        $post = Post::with('media')
+                ->join('medias', 'posts.featured_img', '=', 'medias.id')
+                ->whereRaw(DB::raw('posts.slug = \''.$slug.'\' and medias.file_type != 1  and posts.status = 1'))
+                ->firstOrFail();
+        $homepage = DB::table('homepage')->first();
+        return view('blog.show', compact('post', 'homepage'));
     }
 
     /**

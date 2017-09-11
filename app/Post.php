@@ -17,4 +17,9 @@ class Post extends Model
     {
         return $this->morphMany('App\Comment', 'post');
     }
+
+    public function media()
+    {
+        return $this->hasOne('App\Media', 'id');
+    }
 }
