@@ -70,14 +70,16 @@
 @section('title', 'View Order Details')
 
 @section('content')
-
+    <?php 
+        $user_info = DB::table('users')->where('id', $purchase->user_id)->first();
+    ?>
     <div id="header">
         <div class="fill">
             <div id="profile-container">
 
                 <div id="name-container">
                     <h1 class="text-white">OR NO. {!! $purchase->id !!} </h1>
-                    <p class="text-white">{!! Auth::user()->first_name." ".Auth::user()->last_name !!}</p>
+                    <p class="text-white">{!! $user_info->first_name !!} {!! $user_info->last_name !!}</p>
                 </div>
             </div>
             @if ($purchase->purchase_status != 2 && $purchase->purchase_status != 1)
@@ -89,17 +91,28 @@
     <div id="content">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding: 0px">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                        <a href="{!! url('/') !!}/users/profile" class="btn btn-primary"><i class="fa fa-arrow-left"></i>&nbsp;Profile</a>
+                @if (Auth::user()->hasRole('manager'))
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                            <a href="{!! url('/') !!}/dashboard/tour-clients" class="btn btn-primary"><i class="fa fa-arrow-left"></i>&nbsp;Tour Clients</a>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                            <a href="{!! url('/') !!}/users/profile" class="btn btn-primary"><i class="fa fa-arrow-left"></i>&nbsp;Profile</a>
+                        </div>
+                    </div>
+                @endif
+                    
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                         ORDER BY<br>
-                        <b>{!! Auth::user()->first_name !!} {!! Auth::user()->last_name !!}</b><br>
-                        {!! Auth::user()->city !!}, {!! Auth::user()->province !!}<br>
-                        {!! Auth::user()->phone_number !!}<br><br>
+                        <b>
+                        
+                        {!! $user_info->first_name !!} {!! $user_info->last_name !!}</b><br>
+                        {!! $user_info->city !!}, {!! $user_info->province !!}<br>
+                        {!! $user_info->phone_number !!}<br><br>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                         DATE &amp; TIME<br>
