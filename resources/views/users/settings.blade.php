@@ -287,6 +287,21 @@
                             @endif
                         </td>
                     </tr>
+                    <tr>
+                        <td>Newsletter:</td>
+                        <td>
+                            <?php
+                            $subscriber = DB::table('subscribers')->where('email', Auth::user()->email)->first();
+                            if (empty($subscriber)) {
+                                echo '<b><a class="text-blue" href="'.url('/').'/subscribe-to-newsletter/registered-user">Click here to subscribe</a></b>';
+                            }
+                            else {
+                                echo '<b><a class="text-red" href="'.url('/').'/unsubscribe-registered/'.$subscriber->uniqid.'">Unsubscirbe?</a></b>';
+                            }
+                            ?>
+
+                        </td>
+                    </tr>
                     <!--<tr>
                         <td>Facebook:</td>
                         <td><b class="text-blue"><i class="fa fa-check"></i> Linked</b></td>
@@ -297,9 +312,15 @@
                     </tr>-->
                 </table>
                 <br>
-                {!! Form::button('Update Information', $attributes = array('type' => 'submit', 'class' => 'btn btn-primary text-uppercase')) !!}
-                <a class="btn btn-default text-uppercase" href="{!! url('/') !!}/users/change-password">Change Password</a>
-                <!-- <button class="btn btn-danger text-uppercase">Delete Account</button> -->
+                @if (!empty($_GET['for']))
+                    @if ($_GET['for'] == 'checkout')
+                        {!! Form::button('Proceed to Checkout', $attributes = array('type' => 'submit', 'class' => 'btn btn-primary text-uppercase')) !!}
+                        {!! Form::hidden('for', 'checkout') !!}
+                    @endif
+                @else
+                    {!! Form::button('Update Information', $attributes = array('type' => 'submit', 'class' => 'btn btn-primary text-uppercase')) !!}
+                    <a class="btn btn-default text-uppercase" href="{!! url('/') !!}/users/change-password">Change Password</a>
+                @endif
 
             </div>
             {!! Form::close() !!}

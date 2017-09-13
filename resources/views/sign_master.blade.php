@@ -1,3 +1,9 @@
+<?php
+    if (!empty($_COOKIE['for]'])) {
+        setcookie('for', '', time() - (86400 * 30), "/");
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

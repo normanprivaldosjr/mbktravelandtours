@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserEditFormRequest;
 use App\TourPackage;
 use App\User;
+use App\Purchase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,8 @@ class UsersController extends Controller
     {
         $tour_packages = TourPackage::limit(3)->get();
         $homepage = DB::table('homepage')->first();
-        return view('users.profile', compact('tour_packages', 'homepage'));
+        $purchases = DB::table('purchases')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('users.profile', compact('tour_packages', 'homepage', 'purchases'));
     }
 
     public function update_profile()
@@ -64,6 +66,43 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect(action('UsersController@profile'))->with('status', 'Your profile has been updated!');
+        if (!empty($request->get('for'))) {
+    		if ($request->get('for') == 'checkout') {
+    			return redirect(action('CheckoutController@index'))->with('status', 'Please select your payment method and review your order before submitting.');
+    		}
+    		else {
+    			return redirect(action('UsersController@profile'))->with('status', 'Your profile has been updated!');
+    		}
+    	}
+    	else {
+    		return redirect(action('UsersController@profile'))->with('status', 'Your profile has been updated!');
+    	}
+	}
+
+    public function view_purchase($uniqid) {
+        //check if it is the right user
+        //check if it is the admin
+
+        $homepage = DB::table('homepage')->first();
+        $purchase = DB::table('purchases')->where('uniqid', $uniqid)->first();
+        $purchased_items = DB::table('purchased_items')->where('purchase_id', $purchase->id)->get();
+        if (Auth::user()->id == $purchase->user_id || Auth::user()->hasRole('manager')) {
+            return view('users.view_purchase', compact('purchased_items', 'homepage', 'purchase'));
+        }
+        else {
+            return redirect(action('UsersController@profile'));
+        }
+    }
+
+    public function cancel_purchase($id) {
+        $purchase = DB::table('purchases')->where('id', $id)->first();
+        if (Auth::user()->id == $purchase->user_id || Auth::user()->hasRole('manager')) {
+            $purchase = Purchase::whereId($id)->firstOrFail();
+            $purchase->delete();
+            return redirect(action('UsersController@profile'))->with('status', 'The order has been canceled.');
+        }
+        else {
+            return redirect(action('UsersController@profile'));
+        }
     }
 }

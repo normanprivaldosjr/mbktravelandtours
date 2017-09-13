@@ -216,8 +216,8 @@
                                 <br><br>
                                 Duration: <b>{!! $tour_package->no_of_days !!} days &amp; {!! $tour_package->no_of_nights !!} nights</b><br>
                                 Price starts at: <b class="text-blue">₱ {!! number_format($tour_package->price_starts, 2, '.', ',') !!}</b><br><br>
-                                <a href="{!! url('/') !!}/tour-packages/{!! $tour_package->slug !!}" class="btn btn-primary">Add To Cart</a>
-                                <a href="{!! url('/') !!}/tour-packages/{!! $tour_package->slug !!}" class="btn btn-default text-blue">Read More</a>
+                                
+                                <a href="{!! url('/') !!}/tour-packages/{!! $tour_package->slug !!}" class="btn btn-primary text-white">Read More</a>
                                 
                             </div>
                         </div>

@@ -92,18 +92,43 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="text-uppercase text-blue">Orders</h3>
                 <hr>
+                @foreach ($purchases as $purchase)
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <p>
+                                <b>OR NO. {!! $purchase->id !!}</b><br>
+                                Date: <b>{!! date("F j, Y", strtotime($purchase->created_at)) !!}</b><br>
+                                Payment Method: <b>{!! $purchase->bank_name !!}</b><br>
+                                Price: ₱ {!! number_format($purchase->total, 2, '.', ',') !!}<br>
+                                <?php
+                                    $purchase_status;
+                                    //0 for pending without payment; 1 for pending with payment; 2 for approved; 3 for denied
+                                    if ($purchase->purchase_status == 0) {
+                                        $purchase_status = '<b class="label label-warning" style="font-size:12px">No deposit slip yet</b>';
+                                    }
+                                    else if ($purchase->purchase_status == 1) {
+                                        $purchase_status = '<b class="label label-info" style="font-size:12px">Paid, pending</b>';
+                                    }
+                                    else if ($purchase->purchase_status == 2) {
+                                        $purchase_status = '<b class="label label-success" style="font-size:12px">Approved</b>';
+                                    }
+                                    else {
+                                        $purchase_status = '<b class="label label-danger" style="font-size:12px">Denied</b>';
+                                    }
+                                ?>
+                                Status: {!! $purchase_status !!}<br>
+                                <a class="btn btn-sm btn-primary" href="{!! url('/') !!}/users/profile/purchases/{!!  $purchase->uniqid !!}">View Details</a>
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <button class="btn btn-default text-uppercase text-blue" data-toggle="modal" data-target="#upload-modal">Upload Deposit Receipt</button>
+                        </div>
+                    </div>
+                @endforeach
                 <div class="row">
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        <p>
-                            <b>OR NO. 0001</b><br>
-                            Date: <b>August 20, 2017 09:50 PM</b><br>
-                            Payment Method: <b>BANK DEPOSIT</b><br>
-                            Status: <b class="text-warning">NO DEPOSIT RECEIPT UPLOADED YET</b>
-                        </p>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <button class="btn btn-default text-uppercase text-blue" data-toggle="modal" data-target="#upload-modal">Upload Deposit Receipt</button>
-                    </div>
+                    <center>
+                        {!! $purchases->links() !!}
+                    </center>
                 </div>
             </div>
         </div>

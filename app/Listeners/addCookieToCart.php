@@ -44,7 +44,26 @@ class addCookieToCart
                 $cart_item->save();
             }
             setcookie('cart_items', '', time() - (86400 * 30), "/");
-            session('continue', 'You may now continue your transaction.');
+            if (!empty($_COOKIE['for'])) {
+                if ($_COOKIE['for'] == 'checkout') {
+                    setcookie('for', '', time() - (86400 * 1), "/");
+                    if (!empty(Auth::user()->birthday) && !empty(Auth::user()->city) && !empty(Auth::user()->province) && !empty(Auth::user()->phone_number)) {
+                        session(['continue' => 'You may now proceed to checkout.']);
+                    }
+                    else {
+                        session(['continue_new' => 'Please complete your profile details in order to continue your transaction.']);
+                    }
+                }
+                else {
+                    setcookie('for', '', time() - (86400 * 1), "/");
+                    //
+                }
+            }
+            else {
+                //
+            }
+                
+            
         }
         
     }

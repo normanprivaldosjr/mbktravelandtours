@@ -166,7 +166,20 @@
                 <div class="card gardient-blue">
                     {!! Form::open(['id' => 'register-form', 'data-toggle' => 'validator', 'role' => 'form']) !!}
                         <h2 class="text-blue text-uppercase">Sign Up</h2>
-                        <p class="text-gray">Already have an account? <a href="{!! url('/') !!}/users/login">Sign in here</a></p>
+                        <p class="text-gray">Already have an account? <a href="{!! url('/') !!}/users/login<?php
+                            if (!empty($_GET['for'])) {
+                                if ($_GET['for'] == 'checkout') {
+                                    echo '?for=checkout';
+                                    setcookie('for', 'checkout', time() + (86400 * 1), "/");
+                                }
+                                else {
+                                    setcookie('for', 'checkout', time() - (86400 * 1), "/");
+                                }
+                            }
+                            else {
+                                setcookie('for', 'checkout', time() - (86400 * 1), "/");
+                            }
+                        ?>">Sign in here</a></p>
                         <hr>
                          <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
