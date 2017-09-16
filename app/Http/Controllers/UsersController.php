@@ -35,29 +35,38 @@ class UsersController extends Controller
     }
 
     public function update(UserEditFormRequest $request)
-	{
-		$id = Auth::user()->id;
-	    $user = User::whereId($id)->firstOrFail();
-	    $user->first_name = $request->get('first_name');
-	    $user->middle_initial = $request->get('middle_initial');
-	    $user->last_name = $request->get('last_name');
-	    $user->phone_number = $request->get('phone_number');
-	    $user->city = $request->get('city');
-	    $user->province = $request->get('province');
-	    $user->birthday = date('Y-m-d', strtotime($request->get('birthday')));
-	    //$user->profile_picture = $request->get('profile_picture');
-	    if (!empty($request->profile_picture)) {
-	    	//echo "not empty<br>";
-            $filename = $request->profile_picture->store('assets/images', 'uploads');
-            $user->profile_picture = url('/')."/".$filename;
-        
-	    	//$s = $request->profile_picture->store('assets/images', 'public');
-	    	//return $s;
-	    }
-	    //return $request->profile_picture;
-	    $user->save();
+    {
+        $id = Auth::user()->id;
+        $user = User::whereId($id)->firstOrFail();
+        $user->first_name = $request->get('first_name');
+        $user->middle_initial = $request->get('middle_initial');
+        $user->last_name = $request->get('last_name');
+        $user->phone_number = $request->get('phone_number');
+        $user->city = $request->get('city');
+        $user->province = $request->get('province');
+        $user->birthday = date('Y-m-d', strtotime($request->get('birthday')));
+        //$user->profile_picture = $request->get('profile_picture');
 
-    	if (!empty($request->get('for'))) {
+        $profile_picture = $request->get('profile_picture');
+
+        if(!empty($profile_picture)){
+            if(!empty(Auth::user()->profile_picture))
+               unlink(public_path().parse_url(Auth::user()->profile_picture, PHP_URL_PATH));
+
+            list($type, $profile_picture) = explode(';', $profile_picture);
+            list(, $profile_picture) = explode(',', $profile_picture);
+
+            $profile_picture = base64_decode($profile_picture);
+            $newProfilePicture = time().uniqid(rand()).".png";
+            $path = public_path() . "/uploads/" . $newProfilePicture;
+
+            if(file_put_contents($path, $profile_picture))
+                $user->profile_picture = url('/')."/uploads/".$newProfilePicture;
+        }
+
+        $user->save();
+
+        if (!empty($request->get('for'))) {
     		if ($request->get('for') == 'checkout') {
     			return redirect(action('CheckoutController@index'))->with('status', 'Please select your payment method and review your order before submitting.');
     		}
@@ -68,8 +77,6 @@ class UsersController extends Controller
     	else {
     		return redirect(action('UsersController@profile'))->with('status', 'Your profile has been updated!');
     	}
-
-	    
 	}
 
     public function view_purchase($uniqid) {
@@ -97,6 +104,5 @@ class UsersController extends Controller
         else {
             return redirect(action('UsersController@profile'));
         }
-        
     }
 }

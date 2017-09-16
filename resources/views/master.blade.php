@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/css/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/css/swiper/swiper.min.css">
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/css/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/css/croppie/croppie.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.10/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/css/style.css">
 
@@ -59,6 +60,7 @@
 <script type="text/javascript" src="{!! url('/') !!}/assets/js/bootstrap_datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="{!! url('/') !!}/assets/js/swiper/swiper.jquery.min.js"></script>
 <script type="text/javascript" src="{!! url('/') !!}/assets/js/select2/select2.full.min.js"></script>
+<script type="text/javascript" src="{!! url('/') !!}/assets/js/croppie/croppie.js"></script>
 <script type="text/javascript" src="{!! url('/') !!}/assets/js/validator.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.10/sweetalert2.min.js"></script>
 <script type="text/javascript" src="{!! url('/') !!}/assets/js/script.js"></script>
