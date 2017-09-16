@@ -326,14 +326,14 @@
                                 <label class="form-label">Or Sign up via</label>
                             </div>
                         </div>
-                        <div class="row">
+                        {{--<div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <button class="btn btn-blue btn-block" style="margin-top:0px; margin-bottom:3px"><i class="fa fa-facebook"></i> Facebook</button>
+                                <button class="btn btn-blue btn-block" style="margin-top:0px; margin-bottom:3px" id="facebook-btn"><i class="fa fa-facebook"></i> Facebook</button>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <button class="btn btn-red btn-block" style="margin-top:0px; margin-bottom:3px"><i class="fa fa-google"></i> Google</button>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>

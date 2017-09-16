@@ -21,6 +21,10 @@ Route::get('/ticket/{slug?}/edit','TicketsController@edit');
 Route::get('/users/register', 'Auth\RegisterController@showRegistrationForm');
 Route::get('/users/logout', 'Auth\LoginController@logout');
 Route::get('/users/login', 'Auth\LoginController@showLoginForm');
+
+Route::get('/users/facebook/redirect', 'SocialAuth\FacebookController@redirectToProvider');
+Route::get('/users/facebook/callback', 'SocialAuth\FacebookController@handleProviderCallback');
+
 Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'manager'), function () {
     Route::get('/users', [ 'as' => 'admin.user.index', 'uses' => 'UsersController@index']);
     Route::get('roles', 'RolesController@index');
