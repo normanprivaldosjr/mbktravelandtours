@@ -151,7 +151,7 @@ class TourPackageController extends Controller
                                         ->select(DB::raw('CONCAT(location_name, " (", location_code, ")") as location'), 'id')->pluck('location', 'id');
         $homepage = DB::table('homepage')->first();
         // 2 for tour
-        $faqs = DB::table('faqs')->where('faq_type', 2)->get();
+        $faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 2 and is_hidden = 0'))->get();
         $steps = DB::table('steps')->where('step_type', 2)->get();
         return view('tour_packages.custom', compact('homepage', 'faqs', 'steps', 'locations'));
     }

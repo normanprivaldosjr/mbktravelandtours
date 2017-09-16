@@ -91,9 +91,6 @@
                             {!! date("F j, Y h:m A") !!}<br><br>
                         </b>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                        INVOICE NO. <b>0001</b><br><br>
-                    </div>
                 </div>
                 <div class="row">
 

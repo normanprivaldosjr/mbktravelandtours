@@ -110,7 +110,16 @@
     <!-- Header -->
     <div id="header">
         <div class="fill">
-            <h2 class="text-white">{!! $tour_package->name !!} <a href="{!! url('/') !!}/tour-packages" class="btn btn-primary pull-right">Return to Packages</a></h2>
+            <h2 class="text-white">{!! $tour_package->name !!} 
+            @if(!empty($_GET['from']))
+                @if ($_GET['from'] == 'profile')
+                    <a href="{!! url('/') !!}/users/profile" class="btn btn-primary pull-right">Return to Profile</a>
+                @endif
+            @else
+                <a href="{!! url('/') !!}/tour-packages" class="btn btn-primary pull-right">Return to Packages</a>
+            @endif
+            </h2>
+            
         </div>
     </div>
     <!-- Header -->
