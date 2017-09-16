@@ -29,7 +29,7 @@ class InquiriesController extends Controller
         //$locations = Location::select('id', DB::raw('CONCAT(location_name, "(", location_code, ")") as location')->pluck('location', 'id');
         $homepage = DB::table('homepage')->first();
         // 1 for flight
-        $faqs = DB::table('faqs')->where('faq_type', 1)->get();
+        $faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 1 and is_hidden = 0'))->get();
         $steps = DB::table('steps')->where('step_type', 1)->get();
         $airline_partners = DB::table('airline_partners')->get();
         return view('inquiries.flight', compact('homepage', 'faqs', 'steps', 'locations', 'airline_partners'));
@@ -43,7 +43,7 @@ class InquiriesController extends Controller
         //$locations = Location::select('id', DB::raw('CONCAT(location_name, "(", location_code, ")") as location')->pluck('location', 'id');
         $homepage = DB::table('homepage')->first();
         // 1 for flight
-        $faqs = DB::table('faqs')->where('faq_type', 4)->get();
+        $faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 4 and is_hidden = 0'))->get();
         $steps = DB::table('steps')->where('step_type', 4)->get();
         $bus_travel_locations = json_decode($bus_travel_locations, true);
         $bus_travel_locations = array('' => '-- Select a location --') + $bus_travel_locations;
@@ -60,7 +60,7 @@ class InquiriesController extends Controller
         //$locations = Location::select('id', DB::raw('CONCAT(location_name, "(", location_code, ")") as location')->pluck('location', 'id');
         $homepage = DB::table('homepage')->first();
         // 1 for flight
-        $faqs = DB::table('faqs')->where('faq_type', 3)->get();
+        $faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 3 and is_hidden = 0'))->get();
         $steps = DB::table('steps')->where('step_type', 3)->get();
         return view('inquiries.hotels', compact('homepage', 'faqs', 'steps'));
     }
@@ -70,7 +70,7 @@ class InquiriesController extends Controller
         //$locations = Location::select('id', DB::raw('CONCAT(location_name, "(", location_code, ")") as location')->pluck('location', 'id');
         $homepage = DB::table('homepage')->first();
         // 1 for flight
-        $faqs = DB::table('faqs')->where('faq_type', 5)->get();
+        $faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 5 and is_hidden = 0'))->get();
         $steps = DB::table('steps')->where('step_type', 5)->get();
         $vans = DB::table('vans')->get();
         return view('inquiries.van_rental', compact('homepage', 'faqs', 'steps', 'vans'));

@@ -120,9 +120,78 @@
                             {!! date("F j, Y h:m A", strtotime($purchase->created_at)) !!}<br><br>
                         </b>
                     </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <?php
+                            function file_upload_max_size() {
+                              static $max_size = -1;
+
+                              if ($max_size < 0) {
+                                // Start with post_max_size.
+                                $post_max_size = parse_size(ini_get('post_max_size'));
+                                if ($post_max_size > 0) {
+                                  $max_size = $post_max_size;
+                                }
+
+                                // If upload_max_size is less, then reduce. Except if upload_max_size is
+                                // zero, which indicates no limit.
+                                $upload_max = parse_size(ini_get('upload_max_filesize'));
+                                if ($upload_max > 0 && $upload_max < $max_size) {
+                                  $max_size = $upload_max;
+                                }
+                              }
+                              return $max_size;
+                            }
+
+                            function parse_size($size) {
+                              $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
+                              $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+                              if ($unit) {
+                                // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
+                                return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+                              }
+                              else {
+                                return round($size);
+                              }
+                            }
+
+                            function formatBytes($size, $precision = 2)
+                            {
+                                $base = log($size, 1024);
+                                $suffixes = array('', 'KB', 'MB', 'GB', 'TB');   
+
+                                return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+                            }
+                        ?>
+                        <h3>DEPOSIT RECEIPT</h3>
+                            <img src="{!! $purchase->proof_of_purchase !!}" class="proof-of-purchase">
+                            {!! Form::open(['url' => url('/').'/users/profile/purchases/upload-receipt', 'id' => 'upload-deposit-receipt', 'data-toggle' => 'validator', 'role' => 'form', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::hidden('purchase_id', $purchase->id) !!}                        
+                            <p>
+                                Please deposit your payment to <b class="text-blue">{!! $bank_info->branch !!}</b> with
+                                the account name <b class="text-blue">{!! $bank_info->account_name !!}</b> and
+                                account number <b class="text-blue">{!! $bank_info->account_number !!}</b> and upload a clear
+                                photo/scan of your deposit receipt your order page located in your profile.
+                            </p>
+                            @if (empty($purchase->proof_of_purchase))
+                                <i>If you want to change the receipt, just re-upload the new proof of payment.</i>
+                                <br>
+                                <b class="text-blue">The accepted file types are PDF, and images with a maximum of 
+                                {!! formatBytes(parse_size(file_upload_max_size()), 0) !!} in file size;</b>
+                            @endif
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    {!! Form::file('proof_of_purchase', ['required' => 'required']) !!}
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+
+                            {!! Form::button('Upload', $attributes = array('type' => 'submit', 'class' => 'btn btn-primary text-uppercase')) !!}
+                            {!! Form::close() !!}
+                        
+                    </div>
                 </div>
                 <div class="row">
-
+                <hr>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="table-responsive">
                             <table class="table table-striped">

@@ -78,7 +78,7 @@
                     <img src="{!! Auth::user()->profile_picture !!}">
                 </div>
                 <div id="name-container">
-                    <h1 class="text-white">{!! Auth::user()->first_name." ".Auth::user()->last_name !!}</h1>
+                    <h1 class="text-white">{!! ucwords(Auth::user()->first_name)." ".ucwords(Auth::user()->last_name) !!}</h1>
                     <p class="text-white">{!! Auth::user()->email !!}</p>
                 </div>
             </div>
@@ -117,13 +117,19 @@
                                     }
                                 ?>
                                 Status: {!! $purchase_status !!}<br>
-                                <a class="btn btn-sm btn-primary" href="{!! url('/') !!}/users/profile/purchases/{!!  $purchase->uniqid !!}">View Details</a>
+                                
                             </p>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <button class="btn btn-default text-uppercase text-blue" data-toggle="modal" data-target="#upload-modal">Upload Deposit Receipt</button>
+                            <a class="btn btn-sm btn-primary" href="{!! url('/') !!}/users/profile/purchases/{!!  $purchase->uniqid !!}">View Details
+                            @if ($purchase->purchase_status == 0)
+                                <br> and Upload Deposit Receipt
+                            @endif
+                            </a>
+                            
                         </div>
                     </div>
+                    <hr>
                 @endforeach
                 <div class="row">
                     <center>
@@ -147,9 +153,8 @@
                                         {!! $tour_package->package_description !!}
                                         <br><br>
                                         Duration: <b>{!! $tour_package->no_of_days !!} days &amp; {!! $tour_package->no_of_nights !!} nights</b><br>
-                                        Price starts at: <b class="text-blue">₱ {!! number_format($tour_package->price, 2, '.', ',') !!}</b><br><br>
-                                        <button class="btn btn-primary">Add To Cart</button>
-                                        <a href="{!! url('/') !!}/tour-packages/{!! $tour_package->slug !!}" class="btn btn-default text-blue">Read More</a>
+                                        Price starts at: <b class="text-blue">₱ {!! number_format($tour_package->price_starts, 2, '.', ',') !!}</b><br><br>
+                                        <a href="{!! url('/') !!}/tour-packages/{!! $tour_package->slug !!}?from=profile" class="btn btn-primary text-white">Read More</a>
                                         
                                     </div>
                                 </div>
@@ -161,7 +166,6 @@
         @endif
         
     </div>
-
 
 @endsection
 

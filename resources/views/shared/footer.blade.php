@@ -6,7 +6,13 @@
 
 		<p id="small-desc">
 			<?php
-                $pos=strpos($homepage->about, ' ', 160); 
+				
+				if (strlen($homepage->about) >= 160) {
+                	$pos=strpos($homepage->about, ' ', 160); 
+                }
+                else {
+                	$pos = strlen($homepage->about);
+                }
             ?>
             
             {!! substr($homepage->about, 0, $pos) !!}...

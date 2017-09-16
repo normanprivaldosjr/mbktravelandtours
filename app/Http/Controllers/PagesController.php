@@ -30,11 +30,11 @@ class PagesController extends Controller
     public function faqs()
     {
         //1 for flight; 2 for tour; 3 for hotel; 4 for bus; 5 for van
-        $flight_faqs = DB::table('faqs')->where('faq_type', 1)->get();
-        $tour_faqs = DB::table('faqs')->where('faq_type', 2)->get();
-        $hotel_faqs = DB::table('faqs')->where('faq_type', 3)->get();
-        $bus_faqs = DB::table('faqs')->where('faq_type', 4)->get();
-        $van_faqs = DB::table('faqs')->where('faq_type', 5)->get();
+        $flight_faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 1 and is_hidden = 0'))->get();
+        $tour_faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 2 and is_hidden = 0'))->get();
+        $hotel_faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 3 and is_hidden = 0'))->get();
+        $bus_faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 4 and is_hidden = 0'))->get();
+        $van_faqs = DB::table('faqs')->whereRaw(DB::raw('faq_type = 5 and is_hidden = 0'))->get();
         $homepage = DB::table('homepage')->first();
         return view('faqs', compact('flight_faqs', 'tour_faqs', 'hotel_faqs', 'bus_faqs', 'van_faqs', 'homepage'));
     }
@@ -69,7 +69,7 @@ class PagesController extends Controller
 
     public function testimonials()
     {
-        $testimonials = DB::table('testimonials')->where('remark', 1)->get();
+        $testimonials = DB::table('testimonials')->where('remark', 1)->orderBy('id', 'desc')->get();
         $homepage = DB::table('homepage')->first();
         return view('testimonials', compact('testimonials', 'homepage'));
     }

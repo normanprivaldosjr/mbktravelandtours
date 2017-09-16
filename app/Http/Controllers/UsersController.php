@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserEditFormRequest;
+use App\Http\Requests\UploadDepositReceiptFormRequest;
 use App\TourPackage;
 use App\User;
 use App\Purchase;
@@ -79,12 +80,30 @@ class UsersController extends Controller
         $homepage = DB::table('homepage')->first();
         $purchase = DB::table('purchases')->where('uniqid', $uniqid)->first();
         $purchased_items = DB::table('purchased_items')->where('purchase_id', $purchase->id)->get();
+        $bank_info = DB::table('bank_info')->first();
         if (Auth::user()->id == $purchase->user_id || Auth::user()->hasRole('manager')) {
-            return view('users.view_purchase', compact('purchased_items', 'homepage', 'purchase'));
+            return view('users.view_purchase', compact('purchased_items', 'homepage', 'purchase', 'bank_info'));
         }
         else {
             return redirect(action('UsersController@profile'));
         }
+    }
+
+    public function update_purchase_info(UploadDepositReceiptFormRequest $request) {
+        $id = $request->get('purchase_id');
+        $purchase = Purchase::where('id', $id)->firstOrFail();
+        if (!empty($request->proof_of_purchase)) {
+            //echo "not empty<br>";
+            $filename = $request->proof_of_purchase->store('assets/images', 'uploads');
+            $purchase->proof_of_purchase = url('/')."/".$filename;
+        
+            //$s = $request->profile_picture->store('assets/images', 'public');
+            //return $s;
+        }
+        $purchase->purchase_status = 1;//paid, pending
+        $purchase->datetime_paid = date('Y-m-d H:i:s');
+        $purchase->save();
+        return redirect(action('UsersController@profile'))->with('status', 'The receipt has been successfully uploaded. Please wait for our confirmation for your payment, thank you!');
     }
 
     public function cancel_purchase($id) {
