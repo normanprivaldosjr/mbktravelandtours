@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/admin/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/admin/fonts/font_awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/admin/css/datatables/datatables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/r-2.2.0/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.10/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/admin/summernote/dist/summernote.css">
     <link rel="stylesheet" type="text/css" href="{!! url('/') !!}/assets/admin/css/style.css">
@@ -71,7 +71,7 @@
 <script type="text/javascript" src="{!! url('/') !!}/assets/admin/js/bootstrap/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.6.8-fix/jquery.nicescroll.min.js"></script>
 <script type="text/javascript" src="{!! url('/') !!}/assets/admin/js/validator.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/dt-1.10.16/r-2.2.0/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.10/sweetalert2.min.js"></script>
 <script type="text/javascript" src="{!! url('/') !!}/assets/admin/summernote/dist/summernote.js"></script>
 <script type="text/javascript" src="{!! url('/') !!}/assets/admin/js/script.js"></script>
@@ -99,7 +99,6 @@
         @endif
     }
     
-</script>
 </script>
 </body>
 </html>
