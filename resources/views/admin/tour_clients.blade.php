@@ -29,6 +29,10 @@
             font-size: 12px;
         }
 
+        #main .dataTable{
+            border-collapse: collapse !important;
+        }
+
         table thead tr th,
         table tbody tr td{
             font-size: 13px;
