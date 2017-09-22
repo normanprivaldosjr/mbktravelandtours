@@ -230,7 +230,16 @@ class TourPackagesController extends Controller
 
     public function delete_tour_package($id)
     {
-        DB::table('package_types')->where('package_id', $id)->delete();
-        DB::table('tour_packages')->delete($id);
+        $tour_package = TourPackage::whereId($id)->firstOrFail();
+
+        if(count($tour_package) > 0){
+            $package_image = $tour_package->package_image;
+            $package_image = str_replace(url('/'), public_path(), $package_image);
+
+            unlink($package_image);
+
+            DB::table('package_types')->where('package_id', $id)->delete();
+            DB::table('tour_packages')->delete($id);
+        }
     }
 }
