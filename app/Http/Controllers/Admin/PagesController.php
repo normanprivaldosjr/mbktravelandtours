@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\PackageImageRequest;
+use App\Http\Requests\PackageTypeRequest;
+use App\Http\Requests\TourPackageRequest;
+use App\Http\Requests\UpdateTourPackageRequest;
+use App\PackageType;
+use App\TourPackage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +22,7 @@ use App\Faq;
 use App\Http\Requests\StepFormRequest;
 use App\Sub;
 use App\Http\Requests\SubFormRequest;
-
+use Illuminate\Support\Facades\Storage;
 
 
 class PagesController extends Controller
@@ -28,8 +34,6 @@ class PagesController extends Controller
 
     public function dashboard()
     {
-
-    	
         $total_inquiries = 0;
         $custom_tour_count = DB::table('custom_tour_packages')->count();
         $flight_reservation_count = DB::table('flight_inquiries')->count();
@@ -61,6 +65,30 @@ class PagesController extends Controller
 
 
     	return view('admin.index', compact('total_inquiries', 'total_tour_clients', 'total_registered_users', 'total_revenue', 'custom_tour_count', 'flight_reservation_count', 'hotel_reservation_count', 'bus_booking_count', 'van_rental_count', 'custom_tour_pending', 'flight_reservation_pending', 'hotel_reservation_pending', 'bus_booking_pending', 'van_rental_pending'));
+    }
+
+    public function tour_packages(){
+       $packages = TourPackage::all();
+       return view('admin.tour_packages', compact('packages'));
+    }
+
+    public function tour_package_add_form()
+    {
+        return view('admin.pages.add_package');
+    }
+
+    public function tour_package($slug)
+    {
+        $tour_package = TourPackage::whereSlug($slug)->firstOrFail();
+        $package_types = DB::table('package_types')->where('package_id', $tour_package->id)->get();
+
+        return view('admin.pages.package', compact('tour_package', 'package_types'));
+    }
+
+    public function tour_package_edit_form($slug)
+    {
+        $tour_package = TourPackage::whereSlug($slug)->firstOrFail();
+        return view('admin.pages.edit_package', compact('tour_package'));
     }
 
     public function tour_clients()
