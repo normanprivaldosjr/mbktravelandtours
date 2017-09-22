@@ -209,10 +209,14 @@
                 @foreach ($tour_packages as $tour_package)
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div class="package-container">
-                            <img src="{!! url('/') !!}/assets/images/{!! $tour_package->package_image !!}">
+                            <img src="{!! $tour_package->package_image !!}">
                             <div class="location-container"><h3>{!! $tour_package->name !!}</h3></div>
                             <div class="primary-tour-details">
-                                {!! $tour_package->package_description !!}
+                                @if(strlen($tour_package->package_description) > 200)
+                                    {!! substr($tour_package->package_description, 0, 200)."..." !!}
+                                @else
+                                    {!! $tour_package->package_description !!}
+                                @endif
                                 <br><br>
                                 Duration: <b>{!! $tour_package->no_of_days !!} days &amp; {!! $tour_package->no_of_nights !!} nights</b><br>
                                 Price starts at: <b class="text-blue">₱ {!! number_format($tour_package->price_starts, 2, '.', ',') !!}</b><br><br>
