@@ -60,6 +60,28 @@ a:focus{
 	display: none;
 }
 
+#loading-container{
+	display: none;
+	position: fixed;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 1200;
+	display: none;
+	transition: all 0.3s ease;
+}
+
+#loading-container.active{
+	display: flex;
+}
+
+#loading-container img{
+	width: 50px;
+	height: 50px;
+}
+
 /*
 -
 -
@@ -174,6 +196,27 @@ a:focus{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2195f3', endColorstr='#90caf9', GradientType=0 );
 }
 
+#file-input-container{
+	position: relative;
+	overflow: hidden;
+}
+
+#new-image{
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
+}
+
 /*
 -
 -
@@ -229,7 +272,7 @@ a:focus{
 
 input.form-control,
 select.form-control{
-	height: 54px;
+	height: 54px !important;
 	font-size: 13px;
 	padding: 0px 15px;
 }
