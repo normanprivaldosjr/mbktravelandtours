@@ -17,7 +17,7 @@ class CartController extends Controller
                 'cart_items.*', 
                 'name', 'slug', 'package_image', 'no_of_days', 'no_of_nights', 
                 'tour_packages.package_description', 'tour_packages.selling_day_start', 'tour_packages.selling_day_end', 'tour_packages.travel_day_start', 'tour_packages.travel_day_end', 'tour_packages.price_starts', 'tour_packages.meta_description', 'tour_packages.meta_keywords', 'tour_packages.destination', 
-                'package_types.package_id', 'package_types.type_name', 'package_types.pax_per_room', 'package_types.price', 'package_types.help_info'
+                'package_types.package_id', 'package_types.type_name', 'package_types.price', 'package_types.help_info'
                 )
                     ->join('tour_packages', 'cart_items.tour_package_id', '=', 'tour_packages.id')
 					->join('package_types', 'cart_items.package_type_id', '=', 'package_types.id')
