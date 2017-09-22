@@ -161,7 +161,7 @@
                                 <h5>₱ 
                                 <?php
                                     $pax = $cart_item->no_of_pax;
-                                    $limit = $cart_item->pax_per_room;
+                                    /*$limit = $cart_item->pax_per_room;
                                     $division;
                                     $total;
                                     if (($pax % $limit) == 0) {
@@ -169,8 +169,8 @@
                                     }
                                     else {
                                         $division = ceil($pax / $limit);
-                                    }
-                                    $total = $cart_item->price * $division;
+                                    }*/
+                                    $total = $cart_item->price * $pax;
                                     echo number_format($total, 2, '.', ',');
                                     $subtotal += $total;
                                 ?></h5>
