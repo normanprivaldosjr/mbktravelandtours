@@ -39,6 +39,18 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
     Route::get('dashboard', 'PagesController@dashboard');
     Route::get('tour-clients', 'PagesController@tour_clients');
 
+    Route::get('tour-packages', 'PagesController@tour_packages');
+    Route::get('tour-packages/add', 'PagesController@tour_package_add_form');
+    Route::post('tour-packages/add', 'TourPackagesController@add_tour_package');
+    Route::get('tour-packages/{slug?}/', 'PagesController@tour_package');
+    Route::post('tour-packages/{slug?}/image', 'TourPackagesController@replace_tour_package_image');
+    Route::get('tour-packages/{slug?}/package', 'PagesController@tour_package_edit_form');
+    Route::post('tour-packages/{slug?}/package', 'TourPackagesController@edit_tour_package');
+    Route::post('tour-packages/{slug?}/package-type/{id?}', 'TourPackagesController@get_package_type_info');
+    Route::post('tour-packages/{slug?}/package-type/{id?}/update', 'TourPackagesController@update_package_type');
+    Route::post('tour-packages/{slug?}/package-type/{id?}/delete', 'TourPackagesController@delete_package_type');
+    Route::post('tour-packages/{id?}/delete', 'TourPackagesController@delete_tour_package');
+
     Route::post('roles/create', 'RolesController@store');
     Route::post('users/{id?}/edit','UsersController@update');
     Route::post('posts/create', 'PostsController@store');
