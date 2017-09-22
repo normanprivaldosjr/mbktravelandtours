@@ -11,7 +11,7 @@
             float: left;
             width: 100%;
             height: 75vh;
-            background: url('{!! url('/') !!}/assets/images/{!! $tour_package->package_image !!}') bottom no-repeat;
+            background: url('{!! $tour_package->package_image !!}') bottom no-repeat;
             background-size: cover;
             background-attachment: fixed;
         }
@@ -128,17 +128,9 @@
     <div id="content">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <p>
-                    {!! $tour_package->package_description !!}
-                </p>
-                <br>
-                <h3 class="title text-uppercase text-blue">Tour Details</h3>
-                <ul id="tour-details">
-                    <li>Tour details goes here in a bullet form</li>
-                    <li>Tour details goes here in a bullet form</li>
-                    <li>Tour details goes here in a bullet form</li>
-                    <li>Tour details goes here in a bullet form</li>
-                </ul>
+                {!! $tour_package->package_description !!}
+                <br><br>
+                Travel Period: <b>{!! date('F d, Y', strtotime($tour_package->travel_day_start)) !!} up to {!! date('F d, Y', strtotime($tour_package->travel_day_end)) !!}</b>
                 <br><br>
                 <h3 class="title text-uppercase text-blue">Price Table</h3>
                 <div class="table-responsive" style="margin-top: 30px">
@@ -180,21 +172,6 @@
                     {!! Form::button('Add to Cart', ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block text-uppercase', 'id' => 'add-btn']) !!}
                 {!! Form::close() !!}
                 <a href="{!! url('/') !!}/shopping-cart" class="btn btn-default btn-block text-uppercase text-blue">View Cart</a>
-                <!-- <br><br>
-                <h2 class="title text-uppercase text-blue">Modes Of Payment</h2>
-                <small>We accept the following modes of payment for this specific service</small>
-                <div id="payment-swiper" class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/american_express.jpg"></div>
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/bdo.jpg"></div>
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/bpi.jpg"></div>
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/discover.jpg"></div>
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/jcb.jpg"></div>
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/mastercard.jpg"></div>
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/paypal.jpg"></div>
-                        <div class="swiper-slide"><img src="../assets/images/credit_cards/visa.jpg"></div>
-                    </div>
-                </div> -->
                 <img src="{!! url('/') !!}/assets/images/ads/ad_landscape_two.jpg" style="width: 100%; margin-top: 50px;">
             </div>
         </div>
