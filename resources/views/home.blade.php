@@ -531,7 +531,7 @@
                 @if ($counter == 1)
                     active
                 @endif
-                " id="{!! $international_tour_package->slug !!}" style="background: url('{!! url('/') !!}/assets/images/{!! $international_tour_package->package_image !!}') center no-repeat; background-size: cover; background-attachment: fixed;"></div>
+                " id="{!! $international_tour_package->slug !!}" style="background: url('{!! $international_tour_package->package_image !!}') center no-repeat; background-size: cover; background-attachment: fixed;"></div>
                 <?php $counter++; ?>
             @endforeach
 
@@ -541,7 +541,7 @@
                 @if ($counter == 1)
                     active
                 @endif
-                " id="{!! $local_tour_package->slug !!}" style="background: url('{!! url('/') !!}/assets/images/{!! $local_tour_package->package_image !!}') center no-repeat; background-size: cover; background-attachment: fixed;"></div>
+                " id="{!! $local_tour_package->slug !!}" style="background: url('{!! $local_tour_package->package_image !!}') center no-repeat; background-size: cover; background-attachment: fixed;"></div>
                 <?php $counter++; ?>
             @endforeach
             
@@ -567,7 +567,7 @@
                                     <div class="swiper-wrapper">
                                         @foreach ($international_tour_packages as $international_tour_package)
                                             <div class="swiper-slide">
-                                                <div class="swiper-fill" style="background: url('{!! url('/') !!}/assets/images/{!! $international_tour_package->package_image !!}') center no-repeat; background-size: cover;" onmouseover="changeBackground('#{!! $international_tour_package->slug !!}')">
+                                                <div class="swiper-fill" style="background: url('{!! $international_tour_package->package_image !!}') center no-repeat; background-size: cover;" onmouseover="changeBackground('#{!! $international_tour_package->slug !!}')">
                                                     <div class="tour-info">
                                                         <p class="text-white">
                                                             {!! $international_tour_package->name !!}<br>
@@ -596,7 +596,7 @@
                                     <div class="swiper-wrapper">
                                         @foreach ($local_tour_packages as $local_tour_package)
                                             <div class="swiper-slide">
-                                                <div class="swiper-fill" style="background: url('{!! url('/') !!}/assets/images/{!! $local_tour_package->package_image !!}') center no-repeat; background-size: cover;" onmouseover="changeBackground('#{!! $local_tour_package->slug !!}')">
+                                                <div class="swiper-fill" style="background: url('{!! $local_tour_package->package_image !!}') center no-repeat; background-size: cover;" onmouseover="changeBackground('#{!! $local_tour_package->slug !!}')">
                                                     <div class="tour-info">
                                                         <p class="text-white">
                                                             {!! $local_tour_package->name !!}<br>
