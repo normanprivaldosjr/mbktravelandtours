@@ -56,8 +56,18 @@
                 @endif
             </a>
         </li>
-        <li>
-            <a href="{!! url('/') !!}/admin/tour-packages"><i class="fa fa-map"></i> Tour Packages</a>
+        <li class="
+            <?php
+                $url_1 = url('/').'/admin/tour-packages';
+                $url_2 = url('/').'/admin/tour-packages/add';
+            ?>
+            @if(Request::url() === $url_1 || Request::url() === $url_2)
+                active"><a href="{!! url('/') !!}/admin/tour-packages">
+            @else
+                "><a href="{!! url('/') !!}/admin/tour-packages">
+            @endif
+            <i class="fa fa-map"></i> Tour Packages
+            </a>
         </li>
         <li>
             <a href="{!! url('/') !!}/admin/blogs"><i class="fa fa-pencil"></i> Blogs</a>
