@@ -44,7 +44,7 @@
                             <a href="{!! url('/') !!}/admin/tour-packages/{!! $package->slug !!}" class="text-blue-dark"><b>{!! $package->name !!}</b></a>
                             <hr>
                             @if(strlen($package->package_description) > 200)
-                                <?php echo substr($package->package_description, 0, 150)."..." ?>
+                                <?php echo substr($package->package_description, 0, 200)."..." ?>
                             @else
                                 <?php echo $package->package_description; ?>
                             @endif
